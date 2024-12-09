@@ -1,3 +1,10 @@
+/**
+ * The tester.
+ *
+ * @author Jadon Wilhelm
+ * @version 12/8/24
+ */
+
 public class Tester {
     public static void main(String[] args) {
 

@@ -1,4 +1,9 @@
-import java.util.ArrayList;
+/**
+ * This class is made for each individual data point.
+ *
+ * @author Jadon Wilhelm
+ * @version 12/8/24
+ */
 
 public class DataPoint {
     String date;
@@ -57,6 +62,7 @@ public class DataPoint {
         MA = inputMA;
     }
 
+    //For testing
     public String getAllData(){
         return getDate() + " " + getOpen() + " " + getHigh() + " " + getLow() + " " + getClose() + " " + getRSI() + " " + getMA();
     }

@@ -1,3 +1,10 @@
+/**
+ * This class reads in a CSV file, assigning each line to a new DataPoint object and inserts said object into dataPoints arrayList. It also calculates MA and RSI for every data point.
+ *
+ * @author Jadon Wilhelm
+ * @version 12/8/24
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,7 +19,10 @@ public class RelevantDataAndCalculations {
         this.dataCSV = inputDataCSV;
     }
 
-    //Input data must be formatted CSV, formatted as date, open, high, low, close/last, volume.
+    /**
+     * The method that reads in the CSV file and inserts it into the dataPoints arrayList.
+     * Input data must be a CSV file, formatted as date, open, high, low, close/last, volume.
+     */
     public void collectCSVData() {
         String nextLine = "";
         BufferedReader dataReader;
@@ -32,6 +42,9 @@ public class RelevantDataAndCalculations {
         }
     }
 
+    /**
+     * Calculates relative strength index using the formula provided in the assignment.
+     */
     public void calculateRSI() {
         int periodOfRSI = 14;
 
@@ -61,7 +74,9 @@ public class RelevantDataAndCalculations {
         }
     }
 
-    //Uses the selected and previous 4 data point's closing number in order to determine moving average.
+    /**
+     * Calculates the moving average using the 4 previous data points and the one current data point.
+     */
     public void calculateMA() {
         int periodOfMA = 5;
 
@@ -75,6 +90,10 @@ public class RelevantDataAndCalculations {
         }
     }
 
+    /**
+     *
+     * @return Returns a comma seperated string containing every data point's RSI.
+     */
     public String getAllRSI() {
         String x = "";
         for (int i = 0; i < dataPoints.size(); i++) {
@@ -83,6 +102,11 @@ public class RelevantDataAndCalculations {
         return x;
     }
 
+    /**
+     * Used for Excel and graphing.
+     *
+     * @return Returns a comma seperated string containing every data point's MA.
+     */
     public String getAllMA(){
         String x = "";
         for (int i = 0; i < dataPoints.size(); i++) {
@@ -91,6 +115,11 @@ public class RelevantDataAndCalculations {
         return x;
     }
 
+    /**
+     * Used for Excel and graphing.
+     *
+     * @return Returns the dataPoints arrayList
+     */
     public ArrayList<DataPoint> getDataPoints() {
         return dataPoints;
     }

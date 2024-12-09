@@ -1,3 +1,10 @@
+/**
+ * This class contains a simulator which iterates through every data point, using one of three algorithms to determine when to buy, sell or hold.
+ * It also contains a tradeEvaluator method which calculates and updates the currentBalance, investedBalance and the amount of shares we own.
+ *
+ * @author Jadon Wilhelm
+ * @version 12/8/24
+ */
 
 public class StockBot {
 
@@ -14,6 +21,11 @@ public class StockBot {
         stock = inputStock;
     }
 
+    /**
+     * This method runs the stock simulation, running as many times as there are data points.
+     *
+     * @param algoNum Used to determine which algorithm to use.
+     */
     public void stockSimulation(int algoNum) {
         stock.collectCSVData();
         stock.calculateRSI();
@@ -48,9 +60,10 @@ public class StockBot {
     }
 
     /**
+     * This method does most of the calculations such as updating invested balance and current balance.
      *
-     * @param inputAlgorithm the specific algorithm which will be used to actually determine when to buy, sell and hold
-     * @param currentPoint the current data point in which the method is evaluating
+     * @param inputAlgorithm The specific algorithm which will be used to actually determine when to buy, sell and hold.
+     * @param currentPoint The current data point in which the method is evaluating.
      */
     public void tradeEvaluator(int inputAlgorithm, DataPoint currentPoint) {
         double beforeSellingInvestedBalance = shares * currentPoint.getOpen();
@@ -75,10 +88,10 @@ public class StockBot {
     }
 
     /**
-     * Simple algorithm which buys a set amount of Stock at the beginning of the time frame, and sells it all at the end
+     * Simple algorithm which buys a set amount of Stock at the beginning of the time frame, and sells it all at the end.
      *
-     * @param currentPoint the current data point in which the method is evaluating
-     * @return returns the amount of shares to be bought, sold or held. Positive means buy, negative means sell, 0 means hold
+     * @param currentPoint The current data point in which the method is evaluating.
+     * @return Returns the amount of shares to be bought, sold or held. Positive means buy, negative means sell, 0 means hold.
      */
     public int algorithmOne(DataPoint currentPoint) {
         int sharesToBuyOrSell = 0;
@@ -94,9 +107,10 @@ public class StockBot {
     }
 
     /**
+     *An algorithm which uses both RSI and MA in order t calculate whether it should buy, sell or hold at a given data point.
      *
-     * @param currentPoint
-     * @return
+     * @param currentPoint The current data point in which the method is evaluating.
+     * @return Returns the amount of shares to be bought, sold or held. Positive means buy, negative means sell, 0 means hold.
      */
     public int algorithmTwo(DataPoint currentPoint) {
         int sharesToBuyOrSell = 0;
@@ -117,7 +131,13 @@ public class StockBot {
         return sharesToBuyOrSell;
     }
 
-
+    /**
+     *A modified version of algorithmTwo which tracks the previous data point's open value and uses that information to either buy, sell or hold.
+     * In theory, it would prevent the bot from selling when the previous day's price was significantly higher than today's, or prevent the bot from buying when the previous day's price was significantly cheaper than today's.
+     *
+     * @param currentPoint The current data point in which the method is evaluating.
+     * @return Returns the amount of shares to be bought, sold or held. Positive means buy, negative means sell, 0 means hold.
+     */
     public int algorithmThree(DataPoint currentPoint) {
         int sharesToBuyOrSell = 0;
 
