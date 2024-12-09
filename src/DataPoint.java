@@ -11,12 +11,12 @@ public class DataPoint {
     double high;
     double low;
     double close;
-    int volume;
+    double volume;
     double RSI;
     double MA;
     int index;
 
-    public DataPoint(String inputDate, double inputOpen, double inputHigh, double inputLow, double inputClose, int inputVolume, double inputRSI, double inputMA, int inputIndex){
+    public DataPoint(String inputDate, double inputOpen, double inputHigh, double inputLow, double inputClose, double inputVolume, double inputRSI, double inputMA, int inputIndex){
         date = inputDate;
         open = inputOpen;
         high = inputHigh;

@@ -33,7 +33,7 @@ public class RelevantDataAndCalculations {
             dataReader.readLine();
             while ((nextLine = dataReader.readLine()) != null) {
                 String[] data = nextLine.split(",");
-                DataPoint inputDataPoint = new DataPoint(data[0], Double.parseDouble(data[1]), Double.parseDouble(data[2]), Double.parseDouble(data[3]), Double.parseDouble(data[4]), Integer.parseInt(data[5]), 0, 0, dataPointIndex);
+                DataPoint inputDataPoint = new DataPoint(data[0], Double.parseDouble(data[1]), Double.parseDouble(data[2]), Double.parseDouble(data[3]), Double.parseDouble(data[4]), Double.parseDouble(data[5]), 0, 0, dataPointIndex);
                 dataPoints.add(0, inputDataPoint);
                 dataPointIndex++;
             }

@@ -95,12 +95,14 @@ public class StockBot {
      */
     public int algorithmOne(DataPoint currentPoint) {
         int sharesToBuyOrSell = 0;
+        int sharesThatCanBeBought = (int)(startingBalance / (int)currentPoint.getOpen()) - 1;
+
 
         if (currentPoint.getDate().equals(stock.getDataPoints().get(startingPeriod).getDate())) {
-            sharesToBuyOrSell = 500;
+            sharesToBuyOrSell = sharesThatCanBeBought;
         }
         if (currentPoint.getDate().equals(stock.getDataPoints().get(stock.getDataPoints().size() - 1).getDate())) {
-            sharesToBuyOrSell = -500;
+            sharesToBuyOrSell = -sharesThatCanBeBought;
         }
 
         return sharesToBuyOrSell;
@@ -121,12 +123,12 @@ public class StockBot {
             sharesToBuyOrSell = -30;
         } else if ((currentPoint.getRSI() >= 70 && currentPoint.getMA() < currentPoint.getOpen()) && shares > 10) {
             sharesToBuyOrSell = -10;
-        } else if ((currentPoint.getRSI() <= 30 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 150 && currentBalance > currentPoint.getOpen() * 10) {
+        } else if ((currentPoint.getRSI() <= 30 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 150 && currentBalance > currentPoint.getOpen() * 15) {
             sharesToBuyOrSell = 15;
-        } else if ((currentPoint.getRSI() <= 20 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 300 && currentBalance > currentPoint.getOpen() * 50) {
+        } else if ((currentPoint.getRSI() <= 20 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 300 && currentBalance > currentPoint.getOpen() * 20) {
+            sharesToBuyOrSell = 20;
+        } else if ((currentPoint.getRSI() <= 10 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 500 && currentBalance > currentPoint.getOpen() * 30) {
             sharesToBuyOrSell = 30;
-        } else if ((currentPoint.getRSI() <= 10 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 500 && currentBalance > currentPoint.getOpen() * 100) {
-            sharesToBuyOrSell = 100;
         }
         return sharesToBuyOrSell;
     }
@@ -141,7 +143,7 @@ public class StockBot {
     public int algorithmThree(DataPoint currentPoint) {
         int sharesToBuyOrSell = 0;
 
-        //If the last stock sold was more than what we want to buy today with 25% room for fluctuation, we don't buy
+        //If the last stock sold was more than what we want to sell today with 25% room for fluctuation, we don't buy
         if(!(currentPoint.getIndex() > 1 && (currentPoint.getOpen() + currentPoint.getOpen()*.25 < stock.getDataPoints().get(currentPoint.getIndex() - 1).getOpen()))) {
             if ((currentPoint.getRSI() >= 80 && currentPoint.getMA() < currentPoint.getOpen()) && shares > 30) {
                 sharesToBuyOrSell = -30;
@@ -157,11 +159,11 @@ public class StockBot {
 
         //If the last stock purchased was less than what we want to buy today with 25% room for fluctuation, we don't sell
         if(!(currentPoint.getIndex() > 1 && (currentPoint.getOpen() > stock.getDataPoints().get(currentPoint.getIndex() - 1).getOpen() + stock.getDataPoints().get(currentPoint.getIndex() - 1).getOpen() * .25))) {
-            if ((currentPoint.getRSI() <= 30 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 150 && currentBalance > currentPoint.getOpen() * 10) {
+            if ((currentPoint.getRSI() <= 30 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 150 && currentBalance > currentPoint.getOpen() * 15) {
                 sharesToBuyOrSell = 15;
-            } else if ((currentPoint.getRSI() <= 20 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 200 && currentBalance > currentPoint.getOpen() * 50) {
+            } else if ((currentPoint.getRSI() <= 20 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 200 && currentBalance > currentPoint.getOpen() * 20) {
                 sharesToBuyOrSell = 20;
-            } else if ((currentPoint.getRSI() <= 10 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 300 && currentBalance > currentPoint.getOpen() * 100) {
+            } else if ((currentPoint.getRSI() <= 10 && currentPoint.getMA() > currentPoint.getOpen()) && shares < 300 && currentBalance > currentPoint.getOpen() * 30) {
                 sharesToBuyOrSell = 30;
             }
         }
